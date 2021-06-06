@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.MONGO_URI, {
+let url = process.env.MONGO_URI;
+
+if(process.env.NODE_ENV === 'production'){
+  url = process.env.MONGO_URL
+}
+
+mongoose.connect(url, {
   useCreateIndex: true,
   useFindAndModify: false,
   useNewUrlParser: true,

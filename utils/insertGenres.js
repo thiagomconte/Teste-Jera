@@ -6,7 +6,6 @@ module.exports = async () =>{
   if(genres === 0){
     axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=pt-BR`).then( async (res) =>{
       const newGenres = res.data.genres;
-      console.log(newGenres)
       await Genres.insertMany(newGenres).then(() => {
         console.log("Genres inserted")
       }).catch( err =>{
