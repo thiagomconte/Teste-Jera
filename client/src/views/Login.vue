@@ -54,7 +54,7 @@ export default {
         return {
             email: "",
             password: "",
-            showSpinner:false
+            showSpinner:false,
         };
     },
     methods: {
@@ -68,10 +68,11 @@ export default {
               this.$store.dispatch('authenticate',{
                 name: data?.user?.name,
                 email: data?.user?.email,
-                token: data.token,
+                token: data?.token,
+                api_key: data?.api_key,
                 isAuth: true,
               });
-              this.$router.push('/home');
+              this.$router.push('/profile')
             }).catch( err =>{
               this.showSpinner = false;
               this.$bvToast.toast(err?.response?.data, {

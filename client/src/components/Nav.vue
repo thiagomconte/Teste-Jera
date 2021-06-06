@@ -8,11 +8,13 @@
     <b-collapse id="nav-collapse" is-nav>
       <!-- Right aligned nav items -->
       <b-navbar-nav class="ml-auto">
+
         <b-nav-form>
           <b-form-input  class="mr-sm-2" placeholder="Search"></b-form-input>
           <b-button  class="my-2 my-sm-0 button-search" type="submit">Buscar</b-button>
         </b-nav-form>
         <span @click="logout" class="nav-link ml-4 mr-2">Sair</span>
+        <span class="nav-link ml-4 mr-2">{{$store.state.perfilName}}</span>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

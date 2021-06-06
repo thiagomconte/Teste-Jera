@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../views/Login.vue'
+import Profile from '../views/Profile.vue'
 import Main from '../views/Main.vue'
 import Home from '../views/Home.vue'
 import Register from '../views/Register.vue'
-import {isAuth, isGuest} from './routerGuard'
+import {isAuth, isGuest, isAuthAndProfile} from './routerGuard'
 
 Vue.use(VueRouter)
 
@@ -25,9 +26,14 @@ const routes = [
     beforeEnter: isAuth,
     children: [
       {
+        path:'/profile',
+        component: Profile,
+        beforeEnter: isAuth
+      },
+      {
         path: '/home',
         component: Home,
-        beforeEnter: isAuth
+        beforeEnter: isAuthAndProfile
       }
     ]
   },
