@@ -23,6 +23,10 @@ router.post("/register", auth, validateProfile, async (req, res) => {
   }
 });
 
+/**
+ * @GET
+ * RETORNA A LISTA DE PERFILS DA CONTA CONECTADA
+ */
 router.get("/", auth, async (req, res) => {
   try {
     const profiles = await Profile.find({ user_id: req.decoded.id })
@@ -32,6 +36,10 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+/**
+ * @GET
+ * ADICIONA FILMES PARA A LSITA DO PERFIL
+ */
 router.post("/addwatchlist", async (req, res) => {
   try {
     let { movie_id, genre_ids, profile_id } = req.body;
@@ -52,5 +60,33 @@ router.post("/addwatchlist", async (req, res) => {
     return res.status(500).json("Erro interno");
   }
 });
+
+/**
+ * @GET
+ * RETORNA A LISTA DE FILMES DO PERFIL
+ */
+router.get('/mylist/:profileId', async (req, res) => {
+  try {
+    const list = await Watchlist.find({profile_id: req.params.profileId});
+    return res.json(list);
+  } catch (error) {
+    return res.status(500).json("Erro carregar lista de filmes");
+  }
+})
+
+/**
+ * @POST
+ * ATUALIZA FILME PARA ASSISTIDO 
+ */
+router.post('/checkWatch', async(req, res) => {
+  try {
+    await Watchlist.findOneAndUpdate({movie_id: req.body.id}, {
+      $set: {assistiu: true}
+    })
+    return res.json("Atualizado com sucesso");
+  } catch (error) {
+    return res.status(500).json("Erro interno, tente novamente mais tarde");
+  }
+})
 
 module.exports = router;

@@ -3,7 +3,7 @@
     <h1 class="text-center mb-5">Últimos lançamentos</h1>
     <div class="row d-flex">
       <div class="movie mx-2 mb-5" v-for="movie in movies" :key="movie.id">
-        <h5 class="title">{{ movie.original_title }}</h5>
+        <h5 class="title">{{ movie.title }}</h5>
         <img :src="$store.state.base_url + movie.poster_path" />
         <button
           @click="addToWatchlist(movie.id, movie.genre_ids)"
@@ -13,10 +13,11 @@
         </button>
       </div>
     </div>
+    <div v-if="genresCount > 0">
     <h1 class="text-center my-5">Sugeridos a partir de suas escolhas</h1>
     <div class="row d-flex">
       <div class="movie mx-2 mb-5" v-for="movie in moviesSugeridos" :key="movie.id">
-        <h5 class="title">{{ movie.original_title }}</h5>
+        <h5 class="title">{{ movie.title }}</h5>
         <img :src="$store.state.base_url + movie.poster_path" />
         <button
           @click="addToWatchlist(movie.id, movie.genre_ids)"
@@ -25,6 +26,8 @@
           Assistir mais tarde
         </button>
       </div>
+    </div>
+
     </div>
   </div>
 </template>
@@ -49,9 +52,11 @@ export default {
       .catch((err) => {
         console.log(err.response);
       });
+
+    let randomGenre = this.$store.state.genres[Math.floor(Math.random() * this.$store.state.genres.length)]
     http
       .get(
-        `https://api.themoviedb.org/3/discover/movie?api_key=${this.$store.state.api_key}&language=pt-BR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${this.$store.state.genres}=&with_watch_monetization_types=flatrate`
+        `https://api.themoviedb.org/3/discover/movie?api_key=${this.$store.state.api_key}&language=pt-BR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${randomGenre}&with_watch_monetization_types=flatrate`
       )
       .then((res) => {
         this.moviesSugeridos = res.data.results;
@@ -88,6 +93,11 @@ export default {
         });
     },
   },
+  computed:{
+    genresCount(){
+      return this.$store.state.genres.length
+    }
+  }
 };
 </script>
 

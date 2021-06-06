@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-navbar class="navbar" toggleable="lg" type="dark">
-    <b-navbar-brand href="#">Jeraflix</b-navbar-brand>
+    <b-navbar-brand to="/home">Jeraflix</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
