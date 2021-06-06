@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <h1 class="text-center mb-5">Selcione um perfil</h1>
+    <h1 class="text-center mb-5">Selecione um perfil</h1>
     <div class="row mx-auto mb-5">
       <div v-for="profile in profiles" :key="profile._id" class="col-md text-center">
-        <div class="prof-icon"  @click.prevent="chooseProfile(profile.name, profile._id)">
+        <div class="prof-icon"  @click.prevent="chooseProfile(profile.name, profile._id, profile.genre_id)">
           <span><i class="fas fa-user"></i></span>
         </div>
         <span>{{profile.name}}</span>
@@ -36,8 +36,8 @@ export default {
     })
   },
   methods:{
-    chooseProfile(name, id){
-      this.$store.dispatch('setPerfil',{name, perfilId: id});
+    chooseProfile(name, id, genres){
+      this.$store.dispatch('setPerfil',{name, perfilId: id, genres});
       this.$router.push('/home');
     },
     addProfile(){
@@ -69,11 +69,11 @@ export default {
 .prof-icon{
   text-align: center;
     background-color: var(--main-green-color);
-    border-radius: 3%;
-    font-size: 40px;
+    border-radius: 13%;
+    font-size: 50px;
     color: white;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 120px;
     margin: auto;
     margin-bottom: 10px;
     line-height: 100px;

@@ -1,7 +1,7 @@
 <template>
   <div>
   <b-navbar class="navbar" toggleable="lg" type="dark">
-    <b-navbar-brand href="#">NavBar</b-navbar-brand>
+    <b-navbar-brand href="#">Jeraflix</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -14,7 +14,12 @@
           <b-button  class="my-2 my-sm-0 button-search" type="submit">Buscar</b-button>
         </b-nav-form>
         <span @click="logout" class="nav-link ml-4 mr-2">Sair</span>
-        <span class="nav-link ml-4 mr-2">{{$store.state.perfilName}}</span>
+        <b-nav-item-dropdown right>
+          <template #button-content>
+            <em>{{$store.state.perfilName}}</em>
+          </template>
+          <b-dropdown-item to="/profile">Trocar perfil</b-dropdown-item>
+        </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>

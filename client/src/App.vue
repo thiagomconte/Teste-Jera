@@ -7,7 +7,7 @@
 <style>
 
 :root {
-  --main-green-color: #228B22;
+  --main-green-color: #0db551;
 }
 
 #app {

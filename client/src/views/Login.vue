@@ -3,7 +3,7 @@
     <div class="registration-form">
       <form @submit.prevent="onLogin">
         <div class="form-icon">
-          <span><i class="fas fa-user"></i> </span>
+          <img src=".././assets/jeraflix.png" alt="" srcset="">
         </div>
         <div class="form-group">
           <input
@@ -72,7 +72,7 @@ export default {
                 api_key: data?.api_key,
                 isAuth: true,
               });
-              this.$router.push('/profile')
+              window.location.href = "/profile";
             }).catch( err =>{
               this.showSpinner = false;
               this.$bvToast.toast(err?.response?.data, {
@@ -99,17 +99,12 @@ export default {
     border-radius:30px;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.075);
 }
-.registration-form .form-icon {
-    text-align: center;
-    background-color: var(--main-green-color);
-    border-radius: 50%;
-    font-size: 40px;
-    color: white;
-    width: 100px;
-    height: 100px;
+.registration-form .form-icon img{
+    display: block;
     margin: auto;
-    margin-bottom: 50px;
-    line-height: 100px;
+    margin-bottom: 4em;
+    height: 5rem;
+    width: 20rem;
 }
 .registration-form .item {
     border-radius: 20px;

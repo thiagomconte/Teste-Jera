@@ -10,6 +10,10 @@ const ProfileSchema = new Schema({
     ref: "users",
     required: true,
   },
+  genre_id:[{
+    type: Schema.Types.ObjectId,
+    ref: 'genres'
+  }]
 });
 
 module.exports = model("profiles", ProfileSchema);

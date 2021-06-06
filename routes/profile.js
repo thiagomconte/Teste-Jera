@@ -19,7 +19,7 @@ router.post("/register", auth, validateProfile, async(req, res) => {
 
 router.get("/", auth, async (req, res) => {
   try {
-    const profiles = await Profile.find({user_id: req.decoded.id});
+    const profiles = await Profile.find({user_id: req.decoded.id}).populate('genre_id');
     return res.json(profiles);
   } catch (error) {
     return res.status(500).json("Erro interno");
