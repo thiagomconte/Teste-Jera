@@ -13,6 +13,7 @@
           <b-form-input  class="mr-sm-2" placeholder="Search"></b-form-input>
           <b-button  class="my-2 my-sm-0 button-search" type="submit">Buscar</b-button>
         </b-nav-form>
+        <router-link to="/mylist" class="nav-link ml-4 mr-2">Minha lista</router-link>
         <span @click="logout" class="nav-link ml-4 mr-2">Sair</span>
         <b-nav-item-dropdown right>
           <template #button-content>

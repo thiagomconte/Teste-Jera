@@ -3,7 +3,7 @@
     <h1 class="text-center mb-5">Selecione um perfil</h1>
     <div class="row mx-auto mb-5">
       <div v-for="profile in profiles" :key="profile._id" class="col-md text-center">
-        <div class="prof-icon"  @click.prevent="chooseProfile(profile.name, profile._id, profile.genre_id)">
+        <div class="prof-icon"  @click.prevent="chooseProfile(profile.name, profile._id, profile.genre_ids)">
           <span><i class="fas fa-user"></i></span>
         </div>
         <span>{{profile.name}}</span>

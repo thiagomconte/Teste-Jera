@@ -1,7 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const loadGenresInfo = require('./utils/insertGenres');
 const app = express();
+
+/**
+ * CARREGA GENEROS OFICIAIS
+ */
+loadGenresInfo()
 
 /* DATABASE CONN*/
 require("./database/mongodbConn");

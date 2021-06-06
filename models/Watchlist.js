@@ -6,6 +6,10 @@ const WatchlistSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "profiles",
   },
+  assistiu:{
+    type: Boolean,
+    default: false
+  }
 });
 
 module.exports = model("watchlists", WatchlistSchema);
