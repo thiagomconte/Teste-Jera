@@ -5,6 +5,7 @@
         <img :src="$store.state.base_url + movie.poster_path">
         <div class="ml-3 position-relative">
           <h4 class="d-block">{{movie.title}}</h4>
+          <span class="text-muted d-block mb-2">Lançamento: <i class="far fa-calendar-alt mx-2"></i>{{movie.release_date}}</span>
           <p>{{movie.overview}}</p>
           <button @click.prevent="checkWatch(movie.id)" v-if="!mylist[index].assistiu" class="btn btn-danger">Marcar como assistido</button>
           <span v-else class="btn btn-danger disabled">Já assistiu</span>
@@ -68,9 +69,13 @@ export default {
 
 <style scoped>
 .current-movie img{
-  width: 270px;
+  min-width: 270px;
   height: 250px;
   object-fit: cover;
+}
+
+span{
+  font-size: 12px;
 }
 
 .btn{

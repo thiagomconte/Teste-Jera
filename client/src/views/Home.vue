@@ -14,7 +14,7 @@
       </div>
     </div>
     <div v-if="genresCount > 0">
-    <h1 class="text-center my-5">Sugeridos a partir de suas escolhas</h1>
+    <h1 class="text-center my-5">Sugeridos especialmente para você</h1>
     <div class="row d-flex">
       <div class="movie mx-2 mb-5" v-for="movie in moviesSugeridos" :key="movie.id">
         <h5 class="title">{{ movie.title }}</h5>
@@ -103,7 +103,7 @@ export default {
 
 <style>
 .movie img {
-  width: 200px;
+  min-width: 200px;
   height: 250px;
   display: block;
   border-radius: 20px;
@@ -123,7 +123,7 @@ export default {
 }
 
 .title {
-  width: 200px;
+  min-width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
