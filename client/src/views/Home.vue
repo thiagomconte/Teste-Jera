@@ -1,6 +1,13 @@
 <template>
   <div class="container">
     <h1 class="text-center mb-5">Últimos lançamentos</h1>
+    <div class="overlay" v-if="showSpinner">
+          <div class="overlay__wrapper">
+            <div class="overlay__spinner">
+              <b-spinner class="spinner d-block mx-auto"></b-spinner>
+            </div>
+          </div>
+    </div>
     <div class="row d-flex">
       <div class="movie mx-2 mb-5" v-for="movie in movies" :key="movie.id">
         <h5 class="title">{{ movie.title }}</h5>
@@ -39,6 +46,7 @@ export default {
     return {
       movies: [],
       moviesSugeridos: [],
+      showSpinner:true,
     };
   },
   created() {
@@ -47,9 +55,11 @@ export default {
         `https://api.themoviedb.org/3/discover/movie?api_key=${this.$store.state.api_key}&language=pt-BR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1=&with_watch_monetization_types=flatrate`
       )
       .then((res) => {
+        this.showSpinner = false
         this.movies = res.data.results;
       })
       .catch((err) => {
+        this.showSpinner = false
         console.log(err.response);
       });
 
@@ -59,9 +69,11 @@ export default {
         `https://api.themoviedb.org/3/discover/movie?api_key=${this.$store.state.api_key}&language=pt-BR&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${randomGenre}&with_watch_monetization_types=flatrate`
       )
       .then((res) => {
+        this.showSpinner = false
         this.moviesSugeridos = res.data.results;
       })
       .catch((err) => {
+        this.showSpinner = false
         console.log(err.response);
       });
   },

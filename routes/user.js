@@ -48,9 +48,6 @@ router.post("/login", async (req, res) => {
       },
       process.env.SECRET_KEY,{expiresIn: "7d",}
     );
-
-
-
     return res.json({token,
       user: {
         name: user.name,

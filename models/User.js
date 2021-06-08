@@ -17,6 +17,10 @@ const UserSchema = new Schema({
   dtNascimento:{
     type: String,
     required: true,
+  },
+  facebookId:{
+    type: Number,
+    unique: true
   }
 });
 

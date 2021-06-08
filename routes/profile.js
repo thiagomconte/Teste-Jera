@@ -4,6 +4,7 @@ const Watchlist = require("../models/Watchlist");
 const auth = require("../authorization/auth");
 const { validateProfile } = require("../validator/profileRoutesValidator");
 
+
 /**
  * @POST
  * CRIA PERFIL DO USUÁRIO
@@ -40,7 +41,7 @@ router.get("/", auth, async (req, res) => {
  * @GET
  * ADICIONA FILMES PARA A LSITA DO PERFIL
  */
-router.post("/addwatchlist", async (req, res) => {
+router.post("/addwatchlist", auth, async (req, res) => {
   try {
     let { movie_id, genre_ids, profile_id } = req.body;
 
@@ -65,7 +66,7 @@ router.post("/addwatchlist", async (req, res) => {
  * @GET
  * RETORNA A LISTA DE FILMES DO PERFIL
  */
-router.get('/mylist/:profileId', async (req, res) => {
+router.get('/mylist/:profileId', auth, async (req, res) => {
   try {
     const list = await Watchlist.find({profile_id: req.params.profileId});
     return res.json(list);
@@ -78,7 +79,7 @@ router.get('/mylist/:profileId', async (req, res) => {
  * @POST
  * ATUALIZA FILME PARA ASSISTIDO 
  */
-router.post('/checkWatch', async(req, res) => {
+router.post('/checkWatch', auth, async(req, res) => {
   try {
     await Watchlist.findOneAndUpdate({movie_id: req.body.id}, {
       $set: {assistiu: true}
@@ -88,5 +89,6 @@ router.post('/checkWatch', async(req, res) => {
     return res.status(500).json("Erro interno, tente novamente mais tarde");
   }
 })
+
 
 module.exports = router;

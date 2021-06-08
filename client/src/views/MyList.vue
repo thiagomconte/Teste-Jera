@@ -1,17 +1,28 @@
 <template>
   <div class="container">
-    <div class="d-block mb-5" v-for="(movie, index) in movies" :key="movie._id">
-      <div class="d-flex current-movie">
-        <img :src="$store.state.base_url + movie.poster_path">
-        <div class="ml-3 position-relative">
-          <h4 class="d-block">{{movie.title}}</h4>
-          <span class="text-muted d-block mb-2">Lançamento: <i class="far fa-calendar-alt mx-2"></i>{{movie.release_date}}</span>
-          <p>{{movie.overview}}</p>
-          <button @click.prevent="checkWatch(movie.id)" v-if="!mylist[index].assistiu" class="btn btn-danger">Marcar como assistido</button>
-          <span v-else class="btn btn-danger disabled">Já assistiu</span>
-        </div>
-      </div>
+    <div class="overlay" v-if="showSpinner">
+          <div class="overlay__wrapper">
+            <div class="overlay__spinner">
+              <b-spinner class="spinner d-block mx-auto"></b-spinner>
+            </div>
+          </div>
     </div>
+
+      <div class="d-block mb-5" v-for="(movie, index) in movies" :key="movie._id">
+        <div class="d-flex current-movie">
+          <img :src="$store.state.base_url + movie.poster_path">
+          <div class="ml-3 position-relative">
+           <h4 class="d-block">{{movie.title}}</h4>
+           <span class="text-muted d-block mb-2">Lançamento: <i class="far fa-calendar-alt mx-2"></i>{{movie.release_date}}</span>
+           <p>{{movie.overview}}</p>
+           <div v-if="!mylist[index].assistiu" class="d-flex">
+              <button @click.prevent="checkWatch(movie.id)" class="btn btn-danger">Marcar como assistido</button>
+            </div>
+            <button v-else class="btn btn-danger" disabled>Já assistiu</button>
+          </div>
+        </div>
+    </div>
+    <h1 class="text-center" v-if="!showSpinner && getMovieLength === 0">Sua lista está vazia</h1>
   </div>
 </template>
 
@@ -22,6 +33,7 @@ export default {
     return {
       mylist : [],
       movies : [],
+      showSpinner: true,
     }
   },
   created() {
@@ -32,7 +44,7 @@ export default {
         for(var i = 0 ; i<  this.mylist.length ; i++){
           http.get(`https://api.themoviedb.org/3/movie/${this.mylist[i].movie_id}?api_key=${this.$store.state.api_key}&language=pt-BR`)
           .then((res) => {
-            console.log(res.data)
+            this.showSpinner = false;
             this.movies.push(res.data)
           }).catch(err => {
             console.log(err)
@@ -63,6 +75,11 @@ export default {
         });
       })
     }
+  },
+  computed:{
+    getMovieLength(){
+      return this.movies.length
+    }
   }
 };
 </script>
@@ -81,5 +98,9 @@ span{
 .btn{
   position: absolute;
   bottom: 0;
+}
+
+.btn-info{
+  left: 200px;
 }
 </style>

@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e189765d9c5dce19ca65",
-    "url": "/css/app.107da5d6.css"
+    "revision": "cf7e8809ef55fb3b90ba",
+    "url": "/css/app.3224794f.css"
   },
   {
     "revision": "4f8f25dc95cc5693936f",
@@ -12,12 +12,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/jeraflix.5390a04c.png"
   },
   {
-    "revision": "e9fc09c7fef772e6d8b644a83391bdd0",
+    "revision": "292a0037db4977ff5b7676a8d46b7124",
     "url": "/index.html"
   },
   {
-    "revision": "e189765d9c5dce19ca65",
-    "url": "/js/app.27a7616f.js"
+    "revision": "cf7e8809ef55fb3b90ba",
+    "url": "/js/app.cdc3a541.js"
   },
   {
     "revision": "4f8f25dc95cc5693936f",
