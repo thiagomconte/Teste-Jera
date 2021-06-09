@@ -3,7 +3,8 @@ const Profile = require("../models/Profile");
 const Watchlist = require("../models/Watchlist");
 const auth = require("../authorization/auth");
 const { validateProfile } = require("../validator/profileRoutesValidator");
-
+const sendEmail = require("../utils/sendEmail");
+const schedule = require('node-schedule');
 
 /**
  * @POST
@@ -90,5 +91,30 @@ router.post('/checkWatch', auth, async(req, res) => {
   }
 })
 
+router.post('/agendar', auth, async(req, res) => {
+  try {
+    let {horario, movie_name} = req.body;
+
+    if(!horario || !movie_name) {
+      return res.status(400).json("Formato inválido")
+    }
+
+    let splitedHorario = horario.match(/.{1,2}/g)
+
+    let day = Number(splitedHorario[0])
+    let month = Number(splitedHorario[1])
+    let hour = Number(splitedHorario[2])
+    let minute = Number(splitedHorario[3])
+
+    const date = new Date(2021, month-1, day, hour, minute, 0);
+    const job = schedule.scheduleJob(date, function(){
+      sendEmail(movie_name, req.decoded.email);
+    });
+    return res.json("OK")
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json("Erro interno");
+  }
+})
 
 module.exports = router;

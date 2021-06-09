@@ -16,24 +16,39 @@
            <span class="text-muted d-block mb-2">Lançamento: <i class="far fa-calendar-alt mx-2"></i>{{movie.release_date}}</span>
            <p>{{movie.overview}}</p>
            <div v-if="!mylist[index].assistiu" class="d-flex">
-              <button @click.prevent="checkWatch(movie.id)" class="btn btn-danger">Marcar como assistido</button>
+              <button @click.prevent="checkWatch(movie.id)" class="btn btn-post btn-danger">Marcar como assistido</button>
             </div>
-            <button v-else class="btn btn-danger" disabled>Já assistiu</button>
+            <button v-else class="btn btn-post btn-danger" disabled>Já assistiu</button>
+            <button class="btn btn-post btn-primary btn-info" @click="setMovieName(movie.title)"  v-b-modal.modal-agendar>Agendar</button>
           </div>
         </div>
     </div>
     <h1 class="text-center" v-if="!showSpinner && getMovieLength === 0">Sua lista está vazia</h1>
+  <b-modal
+    id="modal-agendar"
+    hide-footer
+    title="Agendar filme"
+  >
+  <the-mask type="text" class="form-control item" placeholder="dia/mes - hora:minuto"
+    :mask="['##/## - ##:##']"
+    v-model="horario"/>
+    <button class="btn btn-primary mt-3" @click="agendar">Agendar</button>
+  </b-modal>
   </div>
 </template>
 
 <script>
 import { http } from "../config/axiosConfig";
+import { TheMask } from "vue-the-mask";
 export default {
+  components: { TheMask },
   data(){
     return {
       mylist : [],
       movies : [],
       showSpinner: true,
+      movie_name: '',
+      horario: ''
     }
   },
   created() {
@@ -62,6 +77,30 @@ export default {
       });
   },
   methods:{
+    agendar(){
+      this.$bvModal.hide('modal-agendar')
+      http.post(`profiles/agendar`, {horario: this.horario, movie_name: this.movie_name}).then(() =>{
+        this.$bvToast.toast("Seu filme foi agendado", {
+          title: "Sucesso!",
+          autoHideDelay: 3000,
+          variant: "success",
+          toaster: "b-toaster-top-center",
+          solid: true,
+        });
+      }).catch( err => {
+        this.$bvToast.toast(err?.response?.data, {
+          title: "Ocorreu um erro!",
+          autoHideDelay: 3000,
+          variant: "danger",
+          toaster: "b-toaster-top-center",
+          solid: true,
+        });
+      })
+      this.horario = ''
+    },
+    setMovieName(movie_name){
+      this.movie_name = movie_name;
+    },
     checkWatch(id){
       http.post(`profiles/checkWatch`, {id}).then(() =>{
         window.location.reload();
@@ -95,7 +134,7 @@ span{
   font-size: 12px;
 }
 
-.btn{
+.btn-post{
   position: absolute;
   bottom: 0;
 }
