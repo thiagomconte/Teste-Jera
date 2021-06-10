@@ -107,7 +107,6 @@ router.post('/agendar', auth, async(req, res) => {
     let minute = Number(splitedHorario[3])
 
     let date = new Date(2021, month-1, day, hour, minute, 0);
-    date.setHours(date.getHours() + 4)
     const job = schedule.scheduleJob(date, function(){
       sendEmail(movie_name, req.decoded.email);
     });

@@ -1,0 +1,22 @@
+Como instalar e executar a aplicação:
+
+1 - Primeiramente, você precisa ter instalado em sua máquina o node, que pode ser obtido neste 
+link : https://nodejs.org/
+
+2 - Antes de tudo, você precisará configurar o arquivo .env para suas configurações.
+  A variável MONGO_URI é para o banco em desenvolvimento, MONGO_URL para o banco em produção,
+  SECRET_KEY é sua chave de segurança para jsonwebtoken, API_KEY é para a chave o themoviedb e o 
+  restante é para o serviço de e-mail.
+
+3 - No diretório raiz do projeto, pelo terminal digite: 'npm install'.
+  Este comando irá instalar todas as dependências necessárias para rodar o servidor da aplicação.
+  Com as dependências instaladas, e ainda pelo temrinal, digite: 'node server.js'. Agora seu 
+  servidor estará rodando.
+
+4 - Por último, acesse o diretório client, e pelo terminal também digite: 'npm install'.
+  Após a instalação das dependências, ainda pelo terminal, digite: 'npm run serve'.
+
+5 - Para abrir a aplicação no browser, acesse 'http://localhost:8080/'.
+
+6 - A aplicação está configurada para rodar o servidor na porta 3000, e o client na porta 8080.
+  Certifique-se que ambas as portas não estejam sendo utilizadas.
