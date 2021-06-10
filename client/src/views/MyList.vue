@@ -56,10 +56,10 @@ export default {
       .get(`profiles/mylist/${this.$store.state.perfilId}`)
       .then((res) => {
         this.mylist = res.data
+        this.showSpinner = false;
         for(var i = 0 ; i<  this.mylist.length ; i++){
           http.get(`https://api.themoviedb.org/3/movie/${this.mylist[i].movie_id}?api_key=${this.$store.state.api_key}&language=pt-BR`)
           .then((res) => {
-            this.showSpinner = false;
             this.movies.push(res.data)
           }).catch(err => {
             console.log(err)

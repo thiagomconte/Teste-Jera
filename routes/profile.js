@@ -46,7 +46,7 @@ router.post("/addwatchlist", auth, async (req, res) => {
   try {
     let { movie_id, genre_ids, profile_id } = req.body;
 
-    let movieFound = await Watchlist.findOne({ movie_id });
+    let movieFound = await Watchlist.findOne({ movie_id, profile_id });
     if (movieFound)
       return res.status(400).json("Filme já se encontra na sua lista");
 
@@ -107,6 +107,7 @@ router.post('/agendar', auth, async(req, res) => {
     let minute = Number(splitedHorario[3])
 
     let date = new Date(2021, month-1, day, hour, minute, 0);
+    date.setHours(date.getHours() + 4)
     const job = schedule.scheduleJob(date, function(){
       sendEmail(movie_name, req.decoded.email);
     });
